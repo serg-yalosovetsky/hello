@@ -1,0 +1,3 @@
+prefect
+azure-data-tables
+mysql-connector-python
