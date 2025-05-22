@@ -9,4 +9,6 @@ dependencies = [
     "mysql-connector-python>=9.3.0",
     "paramiko>=3.5.1",
     "prefect>=3.4.2",
+    "prefect-sqlalchemy>=0.5.3",
+    "pymysql>=1.1.1",
 ]
