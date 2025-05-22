@@ -1,3 +1,4 @@
 prefect
-azure-data-tables
 mysql-connector-python
+paramiko
+azure-data-tables
