@@ -2,7 +2,7 @@ import json
 from pathlib import Path
 from prefect import flow, task
 import random
-import mysql.connector
+# import mysql.connector
 import paramiko
 from azure.data.tables import TableServiceClient
 
@@ -23,15 +23,15 @@ def read_db_config():
 def process_customer(customer_id: str) -> str:
     # Process a single customer
     db_config = read_db_config()
-    conn = mysql.connector.connect(
-        host=db_config["host"],
-        port=db_config["port"],
-        user=db_config["user"],
-        password=db_config["password"],
-        database=db_config["database"]
-    )
-    cursor = conn.cursor()
-    cursor.execute("SELECT 1")
+    # conn = mysql.connector.connect(
+    #     host=db_config["host"],
+    #     port=db_config["port"],
+    #     user=db_config["user"],
+    #     password=db_config["password"],
+    #     database=db_config["database"]
+    # )
+    # cursor = conn.cursor()
+    # cursor.execute("SELECT 1")
     return f"Processed {customer_id}"
 
 @flow
