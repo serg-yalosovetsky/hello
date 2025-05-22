@@ -1,23 +1,30 @@
 name: hello-project
 prefect-version: "3.4.1"
 
-build: null
+build:
+  - prefect.deployments.steps.run_shell_script:
+      script: |
+        pip install -r requirements.txt
+        pip list
+        
 push: null
 
 pull:
-  - prefect.deployments.steps.set_working_directory:
-      directory: /
+  - prefect.deployments.steps.git_clone:
+      repository: https://github.com/asmerster/hello.git
+      branch: main
+      access_token: "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"
 
 deployments:
-- name: hello-deployment
+- name: download-and-send-project
   version: "1"
   tags: []
-  description: "A simple hello world deployment"
-  schedule: {}  # You can later add interval/cron here
-  flow_name: hello
-  entrypoint: hello_flow.py:hello
+  description: "ATS to SFTP deployment"
+  schedule: {}
+  flow_name: ats_to_sftp
+  entrypoint: download_and_send_flow.py:main
   parameters: {}
   work_pool:
-    name: "ats_work_pool"  # Make sure this pool exists
+    name: "ats_work_pool"
     work_queue_name: null
     job_variables: {}
