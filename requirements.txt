@@ -195,8 +195,6 @@ pytz==2025.2
     # via
     #   dateparser
     #   prefect
-pywin32==310
-    # via docker
 pyyaml==6.0.2
     # via
     #   apprise
