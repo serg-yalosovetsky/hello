@@ -2,3 +2,5 @@ prefect
 mysql-connector-python
 paramiko
 azure-data-tables
+prefect-azure
+mysql-connector-python
