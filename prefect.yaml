@@ -13,7 +13,7 @@ pull:
   - prefect.deployments.steps.git_clone:
       repository: https://github.com/asmerster/hello.git
       branch: main
-      access_token: "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"
+      access_token: "access_token"
 
 deployments:
 - name: download-and-send-project
