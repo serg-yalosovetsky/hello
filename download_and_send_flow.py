@@ -1,4 +1,4 @@
-from prefect import flow
+from prefect import flow, task
 import json
 import mysql.connector
 import paramiko
@@ -9,16 +9,17 @@ from io import BytesIO, TextIOWrapper
 import csv
 
 
+@task
 def read_db_config():
     config_path = Path(__file__).parent / "config.json"
     with open(config_path, 'r') as f:
         return json.load(f)
 
-
+@task
 def extract_value(value):
     return value.value if hasattr(value, 'value') else value
 
-
+@task
 def is_meaningful_row(row_data, exclude_fields=None):
     exclude_fields = exclude_fields or {"PartitionKey", "RowKey"}
     return any(
@@ -27,7 +28,7 @@ def is_meaningful_row(row_data, exclude_fields=None):
         if key not in exclude_fields
     )
 
-
+@task
 def ensure_remote_dir(sftp, remote_directory):
     dirs = remote_directory.strip('/').split('/')
     current_path = ''
@@ -40,7 +41,7 @@ def ensure_remote_dir(sftp, remote_directory):
             print(f"Created remote directory: {current_path}")
             sftp.chdir(current_path)
 
-
+@task
 def insert_sync_event(conn, event_data):
     cursor = conn.cursor()
     cursor.execute("SELECT SF_SyncEventInsert(%s) AS result_json", (json.dumps(event_data),))
@@ -52,7 +53,7 @@ def insert_sync_event(conn, event_data):
     event_data["id"] = result.get("id", result)
     return event_data
 
-
+@task
 def update_sync_event(conn, event, success, log_message):
     def clean(value):
         if isinstance(value, str) and value.strip().lower() == "null":

@@ -1,0 +1,4 @@
+prefect
+mysql-connector-python
+paramiko
+azure-data-tables
